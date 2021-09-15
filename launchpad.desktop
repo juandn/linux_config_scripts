@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Launchpad
+Comment=Show applications grid
+Exec=gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell --method org.gnome.Shell.Eval 'Main.overview.toggle();Main.overview.viewSelector._showAppsButton.checked = true;';
+Icon=view-app-grid-symbolic.svg
+Path=
+Terminal=false
