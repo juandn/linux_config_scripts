@@ -1,8 +1,25 @@
 #!/bin/bash
+###
+### Variables
+###
+case $(lsb_release -i -s) in
+  Debian)
+    iconSize=54
+    launchers=('firefox-esr' 'org.gnome.gedit' 'org.gnome.Nautilus' 'org.gnome.Terminal')
+    ;;
+  Ubuntu)
+    iconSize=84
+    launchers=('firefox' 'org.gnome.gedit' 'org.gnome.Nautilus' 'org.gnome.Terminal')
+    ;;
+  *)
+    echo "Distribución no soportada"
+    exit 0 
+    ;;
+esac
 
 function plankConfig {
   echo 'Configurando plank...'
-  gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ icon-size "84"
+  gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ icon-size $iconSize
   gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ theme "Teleport-theme-Light-Blue"
   gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ zoom-enabled "true"
   gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ zoom-percent "150"
@@ -14,9 +31,11 @@ function plankConfig {
 function plankDockItems {
   echo 'Instalando launchers...'
   echo 'Instalando launchpad..'
+  if [[ ! -f $HOME/.local/share/applications/launchpad.desktop ]]; then
+    cp -av  launchpad.desktop $HOME/.local/share/applications/
+  fi
   touch $HOME/.config/plank/dock1/launchers/launchpad.dockitem | printf "[PlankDockItemPreferences]\nLauncher=file:///home/juandn/.local/share/applications/launchpad.desktop" > $HOME/.config/plank/dock1/launchers/launchpad.dockitem
   echo 'Done.' 
-  launchers=('firefox' 'org.gnome.gedit' 'org.gnome.Nautilus' 'org.gnome.Terminal')
   for i in "${launchers[@]}"
   do
     echo "Instalando launcher para [$i]..."

@@ -5,6 +5,7 @@ sudo apt purge plank -y
 rm -rfv $HOME/.config/plank/
 rm -rfv $HOME/.local/share/plank
 rm -rfv /var/tmp/plankThemeInstall/
+rm -fv $HOME/.local/share/applications/launchpad.desktop
 
 
 
