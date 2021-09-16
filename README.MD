@@ -4,4 +4,6 @@ Collection of scripts with no more relation than config things in Debian Like di
 
 ## Install and unistall Plank Dock
 
-Only test on Ubuntu 21.04
+Soported distro:
+- Debian 11 Bullseye
+- Ubuntu 21.04 Hirsute Hippo
