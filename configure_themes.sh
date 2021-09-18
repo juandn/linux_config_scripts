@@ -1,12 +1,19 @@
 #!/bin/bash
 
 ###
-### Variables
+### Variables de configuración
 ### 
 
 appTheme='Sweet-mars'
 iconSet='Papirus-Dark'
 gnomeShell='Sweet-mars'
+
+wallpaper="abst-orange"
+
+###
+### Variables sistema
+###
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 function installPapirus {
   echo "Instalando iconos..."
@@ -57,14 +64,32 @@ function installTheme {
 
 }
 
+function setWallpaper {
+   case $LANG in
+     es*) wallpaperDir="Fondos de escritorio" ;;
+     en*) wallpaperDir="Wallpapers" ;;
+   esac
+   echo "lang path: $wallpaperDir"
+   source $HOME/.config/user-dirs.dirs
+   wallpaperURI="$XDG_PICTURES_DIR/$wallpaperDir/"
+   echo "path: $wallpaperURI"
+   if [[ ! -d "$wallpaperURI" ]] ; then
+     mkdir -p "$wallpaperURI"
+   fi
+   
+   cp -av "$SCRIPT_DIR/wallpapers"/* "$wallpaperURI"
+   gsettings set org.gnome.desktop.background picture-uri "file://$wallpaperURI/$wallpaper.jpg"
+}
+
 function configGeneric {
   gsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,maximize,close'
   gsettings set org.gnome.desktop.interface clock-show-weekday true
 }
 
 echo "configuraremos la apariencia del escritorio..."
-installPapirus
-installTheme
-configGeneric
+#installPapirus
+#installTheme
+#configGeneric
+setWallpaper
 echo "Done."
 
