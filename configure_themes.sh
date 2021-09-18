@@ -87,9 +87,9 @@ function configGeneric {
 }
 
 echo "configuraremos la apariencia del escritorio..."
-#installPapirus
-#installTheme
-#configGeneric
+installPapirus
+installTheme
+configGeneric
 setWallpaper
 echo "Done."
 
