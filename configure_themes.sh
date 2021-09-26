@@ -84,6 +84,11 @@ function setWallpaper {
 function configGeneric {
   gsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,maximize,close'
   gsettings set org.gnome.desktop.interface clock-show-weekday true
+  
+  ### Terminal settings
+  terminalProfile=$(gsettings get org.gnome.Terminal.ProfilesList default)
+  eval terminalProfile=$terminalProfile
+  gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$terminalProfile/" "default-size-columns" 120
 }
 
 echo "configuraremos la apariencia del escritorio..."
